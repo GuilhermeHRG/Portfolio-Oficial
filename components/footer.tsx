@@ -5,13 +5,13 @@ import { Github, Linkedin, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="w-full mt-12">
+    <footer className="w-full mt-12 text-gray-900">
       {/* Linha separadora */}
       <div className="w-full h-px bg-gray-700/40 mb-6" />
 
-      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 py-6">
+      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-4 py-6">
         {/* Créditos */}
-        <div className="text-sm text-gray-400 text-center md:text-left">
+        <div className="text-sm text-gray-400 text-center md:text-left text-gray-900">
           © {new Date().getFullYear()} Guilherme Guelere. Todos os direitos reservados.
         </div>
 

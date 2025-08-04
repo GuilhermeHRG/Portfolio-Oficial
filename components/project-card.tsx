@@ -13,6 +13,7 @@ interface ProjectCardProps {
   githubUrl?: string
   demoUrl?: string
   stars?: number
+  variant?: "default" | "facebook"
 }
 
 export default function ProjectCard({
@@ -23,9 +24,79 @@ export default function ProjectCard({
   githubUrl,
   demoUrl,
   stars = 0,
+  variant = "default",
 }: ProjectCardProps) {
+  if (variant === "facebook") {
+    return (
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden group hover:shadow-md transition-shadow duration-300">
+        {/* Project Image */}
+        <div className="relative h-48 w-full">
+          <Image
+            src={image || "/placeholder.svg"}
+            alt={title}
+            fill
+            className="object-cover"
+          />
+          {stars > 0 && (
+            <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-1 shadow-sm">
+              <Star size={12} className="fill-yellow-400 text-yellow-400" />
+              <span className="text-xs text-gray-700">{stars}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Project Content */}
+        <div className="p-3">
+          <h3 className="font-medium text-gray-900">{title}</h3>
+          <p className="text-sm text-gray-600 mt-1 line-clamp-2">{description}</p>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-1 mt-2">
+            {tags.map((tag, index) => (
+              <Badge
+                key={index}
+                variant="outline"
+                className="bg-blue-50 text-blue-600 border-blue-100 text-xs"
+              >
+                {tag}
+              </Badge>
+            ))}
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-2 mt-3">
+            {githubUrl && (
+              <Link href={githubUrl} target="_blank" className="flex-1">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="w-full text-gray-700 bg-white hover:bg-gray-50"
+                >
+                  <Github size={14} className="mr-1" /> Código
+                </Button>
+              </Link>
+            )}
+            {demoUrl && (
+              <Link href={demoUrl} target="_blank" className="flex-1">
+                <Button
+                  size="sm"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                >
+                  <ExternalLink size={14} className="mr-1" /> Demo
+                </Button>
+              </Link>
+            )}
+          </div>
+        </div>
+
+       
+      </div>
+    )
+  }
+
+  // Default variant (original)
   return (
-    <div className="bg-[#1b2838]/80 rounded-xl overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+    <div className="bg-[#fff]/80 rounded-xl text-gray-900 overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
       <div className="relative h-40">
         <Image
           src={image || "/placeholder.svg"}
@@ -46,8 +117,6 @@ export default function ProjectCard({
       <div className="p-4">
         <h3 className="font-medium text-white text-lg">{title}</h3>
         <p className="text-xs text-gray-400 mt-1 line-clamp-2">{description}</p>
-
-       
 
         <div className="flex flex-wrap gap-1 mt-2">
           {tags.map((tag, index) => (
@@ -80,8 +149,6 @@ export default function ProjectCard({
               <Github size={14} className="mr-1" /> Código
             </Button>
           )}
-
-          
         </div>
       </div>
     </div>
